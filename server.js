@@ -30,6 +30,20 @@ const table = [
     age: 55,
     forcePoints: 1350,
   },
+  {
+    routeName: 'obiwankenobi1',
+    name: 'Obi Wan Kenobi',
+    role: 'Jedi Master',
+    age: 55,
+    forcePoints: 1350,
+  },
+  {
+    routeName: 'obiwankenobi2',
+    name: 'Obi Wan Kenobi',
+    role: 'Jedi Master',
+    age: 55,
+    forcePoints: 1350,
+  },
 ];
 
 const waitlist = [];
@@ -57,7 +71,38 @@ app.get('/api/waitlist', function (req, res) {
   return res.json(waitlist);
 });
 
+// Displays a single character, or returns false
+app.get('/api/table/:tableList', function (req, res) {
+  var chosen = req.params.tableList;
+
+  console.log(chosen);
+
+  for (var i = 0; i < table.length; i++) {
+    if (chosen === table[i].routeName) {
+      console.log(table.length);
+      return res.json(table[i]);
+    }
+  }
+
+  return res.json(false);
+});
+
+// Create New Characters - takes in JSON input
+app.post('/api/table', function (req, res) {
+  var newTable = req.body;
+
+  newTable.routeName = newTable.name.replace(/\s+/g, '').toLowerCase();
+
+  console.log(newTable);
+  if (table.length < 5) {
+    table.push(newTable);
+  } else {
+    waitlist.push(newTable);
+  }
+
+  res.json(newTable);
+});
+
 app.listen(PORT, function () {
   console.log('App listening on PORT ' + PORT);
 });
-
