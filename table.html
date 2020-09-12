@@ -4,8 +4,14 @@
     <meta charset="UTF-8" />
     <title>Tables Page</title>
     <!-- Latest compiled and minified CSS & JS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
     <script src="https://code.jquery.com/jquery.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
   </head>
@@ -13,30 +19,43 @@
   <body>
     <div class="container">
       <div class="jumbotron">
-
-        <h1 class="text-center"><span class="fa fa-fire"></span>Hot Restaurant</h1>
+        <h1 class="text-center">
+          <span class="fa fa-fire"></span>Hot Restaurant
+        </h1>
         <hr />
         <h3 class="text-center">Current Reservations and Waiting List</h3>
-        <br>
+        <br />
         <div class="text-center">
           <a href="/reserve.html">
-            <button class="btn btn-danger btn-lg"><span class="fa fa-credit-card"></span> Make Reservation</button>
+            <button class="btn btn-danger btn-lg">
+              <span class="fa fa-credit-card"></span> Make Reservation
+            </button>
           </a>
           <a href="/">
-            <button class="btn btn-lg btn-default"><span class="fa fa-home"></span></button>
+            <button class="btn btn-lg btn-default">
+              <span class="fa fa-home"></span>
+            </button>
           </a>
         </div>
       </div>
 
       <div class="row">
         <div class="col-12">
-          
           <div class="card">
             <div class="card-header">
               <h4>Current Reservations</h4>
             </div>
             <div class="card-body">
-              <ul id="tableList" class="list-group"></ul>
+              <ul id="tableList" class="list-group">
+                <!-- <li class="list-group-item mt-4">
+                  <h2>Table #1</h2>
+                  <hr />
+                  <h2>ID: 333</h2>
+                  <h2>Name: f</h2>
+                  <h2>Email: dfdf</h2>
+                  <h2>Phone: fee</h2>
+                </li> -->
+              </ul>
             </div>
           </div>
 
@@ -48,10 +67,35 @@
               <ul id="waitList" class="list-group"></ul>
             </div>
           </div>
-          
         </div>
       </div>
-
     </div>
+
+    <script>
+      $.get('/api/table/', function (data) {
+        console.log(data);
+        if (data) {
+          let list = $('<li>')
+            .addClass('list-group-item mt-4')
+            .append(data[0].routeName);
+          list.appendTo('ul');
+        }
+      });
+
+      // $.get("/api/waitlist/" + searchedCharacter, function(data) {
+      //         console.log(data);
+      //         if (data) {
+      //           $("#stats").show();
+      //           $("#name").text(data.name);
+      //           $("#role").text(data.role);
+      //           $("#age").text(data.age);
+      //           $("#force-points").text(data.forcePoints);
+      //         } else {
+      //           $("#name").text(
+      //             "The force is not strong with this one. Your character was not found.");
+      //           $("#stats").hide();
+      //         }
+      //       });
+    </script>
   </body>
 </html>
